@@ -2,6 +2,15 @@
     padding: 10px;
 }
 
-.image{
-    width: 100px;
+.mainPhoto{
+    width: 200px;
+}
+.contact {
+    padding-left: 10px;
+}
+
+.formSummaryError {
+    border: 2px red solid;
+    padding: 5px;
+    color: red;
 }

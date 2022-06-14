@@ -1,12 +1,14 @@
 import reportWebVitals from './reportWebVitals';
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import ReactDOM from 'react-dom';
+//import {createRoot} from 'react-dom/client';
 import SamuraiJSApp from './App';
 
 //ReactDOM.render(
-createRoot(document.getElementById('root')).render(
-  <SamuraiJSApp/>
-);
+// createRoot(document.getElementById('root')).render(
+//   <SamuraiJSApp/>
+// );
+ReactDOM.render(<SamuraiJSApp/>, document.getElementById('root'));
 
 
 // If you want to start measuring performance in your app, pass a function

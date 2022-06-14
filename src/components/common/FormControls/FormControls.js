@@ -28,13 +28,13 @@ export const Input = (props) => {
     <FormControl {...props}><input {...input} {...rest} /></FormControl>
   );
 };
-export const createField = (placeholder, name, component, validators, rest, text="") => (
+export const createField = (placeholder, name, component, validators, props, text="") => (
   <div>
     <Field
       placeholder={placeholder}
       name={name}
       component={component}
       validate={validators}
-      {...rest}
+      {...props}
     />{text}
   </div>);

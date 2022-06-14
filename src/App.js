@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'; // BrowserRouter, HashRouter
 import News from './News/News';
 import Music from './Music/Music';
 import Settings from './Settings/Settings';
@@ -34,8 +34,16 @@ const LoginPage = React.lazy(() => import('./components/Login/Login'));
 
 
 class App extends React.Component {
+  catchAllUnhandledErrors =(promiseRejectionEvent) =>{
+    alert("Error occured:" +promiseRejectionEvent);
+    //console.log(promiseRejectionEvent)
+  }
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
   }
 
   render() {
@@ -55,13 +63,15 @@ class App extends React.Component {
         <Navbar/>
         <div className="app-wrapper-content">
           <Routes>
-            <Route path="/dialogs/*" element={<DialogApp />}/>} />
-            <Route path="/profile/*" element={<ProfileApp />}/>
-            <Route path="/users" element={<UsersApp />}/>
-            <Route path="/login" element={<LoginApp />} />
+            <Route path="/dialogs/*" element={<DialogApp/>}/>} />
+            <Route path="/profile/*" element={<ProfileApp/>}/>
+            <Route path="/users" element={<UsersApp/>}/>
+            <Route path="/login" element={<LoginApp/>}/>
             <Route path="/news" element={<News/>}/>
             <Route path="/music" element={<Music/>}/>
             <Route path="/settings" element={<Settings/>}/>
+            <Route path="/" element={<Navigate to="/profile"/>}/>
+            <Route path="*" element={<div>404 NOT FOUND</div>}/>
           </Routes>
         </div>
       </div>
@@ -79,7 +89,7 @@ const mapDispatchToProps = {
 // export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(App);
 
 const AppContainer = compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(App);
-
+//basename={process.env.PUBLIC_URL}
 const SamuraiJSApp = (props) => {
   return <BrowserRouter>
     <React.StrictMode>
